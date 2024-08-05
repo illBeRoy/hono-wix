@@ -1,0 +1,9 @@
+{
+  "name": "@hono-wix/root",
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@4.4.0"
+}
