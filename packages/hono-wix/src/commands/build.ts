@@ -135,7 +135,7 @@ export async function buildEntrypoint({
     routes
       .map(
         (route) =>
-          `function ${route.method}__${route.path}(request) {\n` +
+          `export function ${route.method}__${route.path}(request) {\n` +
           '  return handleRequest(app, request);\n' +
           '}',
       )

@@ -35,7 +35,7 @@ describe('Build a compatible http-functions.js file', () => {
 
       assert(
         out.includes(
-          'function get__hello(request) {\n' +
+          'export function get__hello(request) {\n' +
             '  return handleRequest(app, request);\n' +
             '}',
         ),
@@ -48,10 +48,10 @@ describe('Build a compatible http-functions.js file', () => {
         config,
       });
 
-      assert(out.includes('function get__hello(request) {'));
-      assert(out.includes('function post__hey(request) {'));
-      assert(out.includes('function put__hi(request) {'));
-      assert(out.includes('function delete__aloha(request) {'));
+      assert(out.includes('export function get__hello(request) {'));
+      assert(out.includes('export function post__hey(request) {'));
+      assert(out.includes('export function put__hi(request) {'));
+      assert(out.includes('export function delete__aloha(request) {'));
     });
 
     it('should not mistakenly register routes (see file for elaboration)', async () => {
@@ -60,7 +60,7 @@ describe('Build a compatible http-functions.js file', () => {
         config,
       });
 
-      assert(!out.includes('function get__'));
+      assert(!out.includes('export function get__'));
     });
 
     it('should require that the app is created in the entrypoint', async () => {
