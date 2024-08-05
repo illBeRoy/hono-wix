@@ -15,7 +15,7 @@ describe('Build a compatible http-functions.js file', () => {
         config,
       });
 
-      assert(out.includes('import { handleRequest } from "wix-hono";'));
+      assert(out.includes('import { handleRequest } from "hono-wix";'));
     });
 
     it('should import the hono app', async () => {

@@ -130,7 +130,7 @@ export async function buildEntrypoint({
   });
 
   return (
-    'import { handleRequest } from "wix-hono";\n' +
+    'import { handleRequest } from "hono-wix";\n' +
     'import app from "./__hono";\n\n' +
     routes
       .map(
