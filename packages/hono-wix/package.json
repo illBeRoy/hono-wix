@@ -1,6 +1,7 @@
 {
   "name": "hono-wix",
   "packageManager": "yarn@4.4.0",
+  "version": "0.0.1",
   "scripts": {
     "build": "yarn tsc",
     "test": "yarn test:unit && yarn test:e2e",
@@ -9,6 +10,9 @@
   },
   "main": "dist/index.js",
   "bin": "dist/cli.js",
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "hono": "^4.0.0"
   },
