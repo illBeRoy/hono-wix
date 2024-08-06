@@ -20,7 +20,10 @@ export async function handleRequest(
   app: Hono,
   request: WixHttpFunctionRequest,
 ): Promise<WixHttpFunctionResponse> {
-  const response = await app.request(request.functionName, {
+  // @ts-expect-error wix-http-functions is only available on the Headless runtime. that's why we dynamically import it, so it doesn't break tests / local use of the package by eagerly importing this module
+  const wixHttpFunctions = await import('wix-http-functions');
+
+  const honoResponse = await app.request(request.functionName, {
     method: request.method,
     headers: request.headers,
     ...(['GET', 'HEAD'].includes(request.method.toUpperCase())
@@ -32,9 +35,9 @@ export async function handleRequest(
         }),
   });
 
-  return {
-    status: response.status,
-    headers: Object.fromEntries(response.headers.entries()),
-    body: await response.text(),
-  };
+  return wixHttpFunctions.response({
+    status: honoResponse.status,
+    headers: Object.fromEntries(honoResponse.headers.entries()),
+    body: await honoResponse.text(),
+  });
 }

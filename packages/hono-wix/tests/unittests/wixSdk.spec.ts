@@ -2,8 +2,8 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert';
 import { Hono } from 'hono';
 import { fetchWithAuth } from '@wix/sdk/context';
-import { handleRequest, wixSdk } from '../../src';
 import { server } from '../testkits/server';
+import { wixSdk } from '../../src';
 
 describe('the wixSdk() middleware', () => {
   it('the Wix SDK on the context should have the authorization header from the request', async () => {
@@ -19,8 +19,7 @@ describe('the wixSdk() middleware', () => {
       return c.text('ok');
     });
 
-    await handleRequest(app, {
-      functionName: 'useFetchWithAuth',
+    await app.request('/useFetchWithAuth', {
       method: 'POST',
       headers: { Authorization: myWixAuth },
     });
@@ -46,20 +45,14 @@ describe('the wixSdk() middleware', () => {
     });
 
     const twoConcurrentRequests = [
-      handleRequest(app, {
-        functionName: 'useFetchWithAuth',
+      app.request('/useFetchWithAuth', {
         method: 'POST',
-        body: {
-          text: () => Promise.resolve(JSON.stringify({ timeToWait: 50 })),
-        },
+        body: JSON.stringify({ timeToWait: 50 }),
         headers: { Authorization: auth1 },
       }),
-      handleRequest(app, {
-        functionName: 'useFetchWithAuth',
+      app.request('/useFetchWithAuth', {
         method: 'POST',
-        body: {
-          text: () => Promise.resolve(JSON.stringify({ timeToWait: 10 })),
-        },
+        body: JSON.stringify({ timeToWait: 10 }),
         headers: { Authorization: auth2 },
       }),
     ];
