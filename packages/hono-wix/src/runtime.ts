@@ -22,10 +22,14 @@ export async function handleRequest(
 ): Promise<WixHttpFunctionResponse> {
   const response = await app.request(request.functionName, {
     method: request.method,
-    body: await Promise.resolve()
-      .then(() => request.body?.text())
-      .catch(() => undefined),
     headers: request.headers,
+    ...(['GET', 'HEAD'].includes(request.method.toUpperCase())
+      ? {}
+      : {
+          body: await Promise.resolve()
+            .then(() => request.body?.text())
+            .catch(() => undefined),
+        }),
   });
 
   return {
