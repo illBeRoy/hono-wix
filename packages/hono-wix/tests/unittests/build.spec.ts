@@ -1,8 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
 import path from 'node:path';
-import { buildEntrypoint } from '../../src/commands/build';
-import { config } from '../../src/config';
+import { buildEntrypoint } from '../../src/cli/build';
+import { config } from '../../src/cli/config';
 
 describe('Build a compatible http-functions.js file', () => {
   const fixture = (name: string) =>

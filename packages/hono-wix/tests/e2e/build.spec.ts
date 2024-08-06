@@ -40,7 +40,7 @@ const createTempProjectDirFromFixture = async (fixtureName: string) => {
 
 const runCli = (cwd: string, command: string) => {
   const tsxPath = path.join(path.dirname(require.resolve('tsx')), 'cli.mjs');
-  const cliPath = path.join(__dirname, '..', '..', 'src', 'cli.ts');
+  const cliPath = path.join(__dirname, '..', '..', 'src', 'cli', 'index.ts');
   const cmd = `${tsxPath} ${cliPath} ${command}`;
   return execSync(cmd, { cwd });
 };

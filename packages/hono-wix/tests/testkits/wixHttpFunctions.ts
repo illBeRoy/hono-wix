@@ -8,7 +8,9 @@ export const mockWixHttpFunctionsModule = async () => {
 
   const response = (opts: unknown) => new WixHttpFunctionResponseMock(opts);
 
-  await replaceEsm(path.resolve('./src/wix-http-functions'), { response });
+  await replaceEsm(path.resolve('./src/runtime/wix-http-functions'), {
+    response,
+  });
 
   return {
     response,

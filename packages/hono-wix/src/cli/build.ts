@@ -5,7 +5,7 @@ import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import { load } from '@npmcli/package-json';
 import * as tsup from 'tsup';
-import type { Config } from '../config';
+import type { Config } from './config';
 
 export interface BuildOptions {
   config: Config;

@@ -1,2 +1,2 @@
-export * from './runtime';
-export * from './wixSdkMiddleware';
+export * from './runtime/handleRequest';
+export * from './runtime/wixSdkMiddleware';

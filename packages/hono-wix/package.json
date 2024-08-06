@@ -9,7 +9,7 @@
     "test:e2e": "tsx --test tests/e2e/*.spec.(ts|tsx)"
   },
   "main": "dist/index.js",
-  "bin": "dist/cli.js",
+  "bin": "dist/cli/index.js",
   "files": [
     "dist"
   ],
