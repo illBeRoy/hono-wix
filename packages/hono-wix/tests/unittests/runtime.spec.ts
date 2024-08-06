@@ -76,6 +76,30 @@ describe('hono-wix runtime library', () => {
     });
   });
 
+  it('should ignore the body if could not fetch from the request', async () => {
+    const app = new Hono();
+
+    app.get('/iHaveNoBody', async (c) => {
+      return c.json({ theBodyYouSentIs: await c.req.text() });
+    });
+
+    const res = await handleRequest(app, {
+      functionName: 'iHaveNoBody',
+      method: 'GET',
+      body: {
+        text: () => {
+          throw new Error('No body in GET requests!');
+        },
+      },
+    });
+
+    assert.deepEqual(res, {
+      status: 200,
+      headers: { 'content-type': 'application/json; charset=UTF-8' },
+      body: JSON.stringify({ theBodyYouSentIs: '' }),
+    });
+  });
+
   it('should pass headers in', async () => {
     const app = new Hono();
 

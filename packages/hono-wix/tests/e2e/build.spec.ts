@@ -16,7 +16,7 @@ describe('wix-hono build', () => {
     const httpFnsFile = path.join(projectDir.path, 'dist', 'http-functions.js');
     const honoFile = path.join(projectDir.path, 'dist', '__hono.js');
 
-    assert((await fs.readFile(httpFnsFile, 'utf-8')).includes('get__hello'));
+    assert((await fs.readFile(httpFnsFile, 'utf-8')).includes('get_hello'));
     assert((await fs.readFile(honoFile, 'utf-8')).includes('app.get("/hello"'));
   });
 });
