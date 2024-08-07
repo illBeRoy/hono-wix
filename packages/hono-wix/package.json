@@ -1,7 +1,7 @@
 {
   "name": "hono-wix",
   "packageManager": "yarn@4.4.0",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "scripts": {
     "build": "yarn tsc",
     "test": "yarn test:unit && yarn test:e2e",
@@ -40,6 +40,7 @@
     "@babel/traverse": "^7.25.3",
     "@npmcli/package-json": "^5.2.0",
     "@wix/sdk": "^1.12.10",
+    "open": "^8.0.0",
     "prompts": "^2.4.2",
     "tsup": "^8.2.4"
   }

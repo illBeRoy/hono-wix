@@ -1,7 +1,8 @@
 import assert from 'node:assert';
+import prompts from 'prompts';
+import open from 'open';
 import { Config, setConfigKey } from './config';
 import { getSitesList, login, turnOnSiteDevMode, whoAmI } from './wixApi';
-import prompts from 'prompts';
 
 export interface InitOptions {
   config: Config;
@@ -38,10 +39,27 @@ export async function init({ config }: InitOptions) {
     name: 'selectedSite',
     type: 'select',
     message: 'Choose a Wix site to link to your project',
-    choices: sites.map((site) => ({ value: site.id, title: site.displayName })),
+    choices: [
+      {
+        title: 'Create new site',
+        value: '<NEW>',
+        description:
+          'go to wix.com to create a new site and connect it to your project',
+      },
+      { title: '------', disabled: true },
+      ...sites.map((site) => ({ value: site.id, title: site.displayName })),
+    ],
   });
 
   assert(selectedSite, 'No site was selected. Aborting...');
+
+  if (selectedSite === '<NEW>') {
+    console.log(
+      'Sending you to wix.com to create a new site. Once created, run "hono-wix init" once again, and select the newly created site.',
+    );
+    open('https://manage.wix.com');
+    return;
+  }
 
   await turnOnSiteDevMode(selectedSite);
 
