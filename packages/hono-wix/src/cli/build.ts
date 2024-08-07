@@ -169,6 +169,7 @@ export async function build({ config }: BuildOptions) {
     entry: { __hono: pkgJson.content.main },
     outDir: config.outDir,
     format: 'esm',
+    target: 'es2020',
     outExtension() {
       return { js: '.js', dts: '.d.ts' };
     },

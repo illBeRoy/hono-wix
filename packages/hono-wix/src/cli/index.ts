@@ -4,6 +4,7 @@ import { parseArgs } from 'node:util';
 import { build } from './build';
 import { loadConfig } from './config';
 import { init } from './init';
+import { publish } from './publish';
 
 async function main() {
   const args = parseArgs({
@@ -24,6 +25,10 @@ async function main() {
       await build({ config });
       break;
     }
+    case 'publish': {
+      await publish({ config });
+      break;
+    }
     default: {
       throw new Error(`Unrecognized command: ${cmd}`);
     }
@@ -31,5 +36,8 @@ async function main() {
 }
 
 if (require.main === module) {
-  main().catch((err) => console.error(err));
+  main().catch((err) => {
+    console.error(err?.message ?? err);
+    process.exit(1);
+  });
 }

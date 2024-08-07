@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { Config, setConfigKey } from './config';
-import { getSitesList, login, turnOnSiteDevMode, whoAmI } from './wixApiClient';
+import { getSitesList, login, turnOnSiteDevMode, whoAmI } from './wixApi';
 import prompts from 'prompts';
 
 export interface InitOptions {
