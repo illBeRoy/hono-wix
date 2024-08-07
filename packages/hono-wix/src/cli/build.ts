@@ -130,8 +130,11 @@ export async function buildEntrypoint({
   });
 
   return (
-    'import { handleRequest } from "hono-wix";\n' +
     'import app from "./__hono";\n\n' +
+    (await fs.readFile(
+      path.join(__dirname, '..', '..', 'assets', 'runtime.js'),
+    )) +
+    '\n' +
     routes
       .map(
         (route) =>
@@ -173,6 +176,6 @@ export async function build({ config }: BuildOptions) {
     outExtension() {
       return { js: '.js', dts: '.d.ts' };
     },
-    skipNodeModulesBundle: true,
+    noExternal: [/.*/],
   });
 }

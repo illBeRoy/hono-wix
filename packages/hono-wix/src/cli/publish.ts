@@ -27,16 +27,14 @@ export async function publish({ config }: PublishOptions) {
   }
 
   const deployment = await deployApp(config.siteId, {
-    'package.json': { fromPath: 'package.json' },
     'backend/http-functions.js': {
       fromPath: path.join(config.outDir, 'http-functions.js'),
     },
     'backend/__hono.js': {
       fromPath: path.join(config.outDir, '__hono.js'),
     },
-    styles: { fromContent: '/* ok */' },
-    'pages/masterPage.js': { fromContent: '// ok' },
-    'public/.keep': { fromContent: 'ok' },
+    'styles/noop.css': { fromContent: '/* ok */' },
+    'public/pages/masterPage.js': { fromContent: '// ok' },
   });
 
   const httpFnsUrl = new URL(deployment.deploymentUrl);

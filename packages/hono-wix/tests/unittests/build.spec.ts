@@ -9,15 +9,6 @@ describe('Build a compatible http-functions.js file', () => {
     path.join(__dirname, '..', 'fixtures', name);
 
   describe('building the entrypoint', () => {
-    it('should import the runtime', async () => {
-      const out = await buildEntrypoint({
-        srcFile: fixture('basic.js'),
-        config,
-      });
-
-      assert(out.includes('import { handleRequest } from "hono-wix";'));
-    });
-
     it('should import the hono app', async () => {
       const out = await buildEntrypoint({
         srcFile: fixture('basic.js'),
@@ -25,6 +16,15 @@ describe('Build a compatible http-functions.js file', () => {
       });
 
       assert(out.includes('import app from "./__hono";'));
+    });
+
+    it('should contain the runtime', async () => {
+      const out = await buildEntrypoint({
+        srcFile: fixture('basic.js'),
+        config,
+      });
+
+      assert(out.includes('async function handleRequest(app, request)'));
     });
 
     it('should proxy requests into the hono app', async () => {

@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert';
 import { Hono } from 'hono';
 import { mockWixHttpFunctionsModule } from '../testkits/wixHttpFunctions';
-import { handleRequest } from '../../src';
+import { handleRequest } from '../../src/runtime/handleRequest';
 
 describe('hono-wix runtime library', () => {
   it('should proxy requests into the hono app', async () => {

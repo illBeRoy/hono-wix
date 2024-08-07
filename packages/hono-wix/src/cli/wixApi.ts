@@ -91,7 +91,7 @@ export async function deployApp(
         revision: siteRevision,
         content: {
           ignoreForbiddenPaths: true,
-          // layout: 'GITHUB',
+          layout: 'ONLINE',
           files: Object.entries(files).map(([targetFilePath, srcFile]) => ({
             path: targetFilePath,
             content:
@@ -107,7 +107,7 @@ export async function deployApp(
   assert.equal(
     res.status,
     200,
-    `Failed to deploy to Wix. (status: ${res.status}; requestId: ${res.headers.get('x-wix-request-id')}; message: ${await res.text()})`,
+    `Failed to deploy to Wix. (status: ${res.status}; requestId: ${res.headers.get('x-wix-request-id')}`,
   );
 
   const json = await res.json();
