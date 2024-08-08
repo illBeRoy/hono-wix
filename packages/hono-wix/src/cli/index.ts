@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import assert from 'node:assert';
 import { parseArgs } from 'node:util';
-import { build } from './build';
 import { loadConfig } from './config';
 import { init } from './init';
+import { build } from './build';
 import { publish } from './publish';
+import { manage } from './manage';
 
 async function main() {
   const args = parseArgs({
@@ -23,6 +24,10 @@ async function main() {
     }
     case 'build': {
       await build({ config });
+      break;
+    }
+    case 'manage': {
+      await manage({ config });
       break;
     }
     case 'publish': {
