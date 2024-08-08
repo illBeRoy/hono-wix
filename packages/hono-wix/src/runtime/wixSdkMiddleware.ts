@@ -35,8 +35,7 @@ export const wixSdk = () => {
   wixClient.enableContext('global');
 
   return createMiddleware(async (c, next) => {
-    const auth =
-      c.req.header('x-wix-authorization') ?? c.req.header('authorization');
+    const auth = c.req.header('authorization');
     await authStorage.run(auth ? { auth } : {}, next);
   });
 };

@@ -28,28 +28,6 @@ describe('the wixSdk() middleware', () => {
     assert.equal(reqFromWixClient.headers.authorization, myWixAuth);
   });
 
-  it('the Wix SDK on the context should prefer the wix authorization header from the request, if exists', async () => {
-    await using testServer = await server();
-
-    const myWixAuth = 'eyJhbGci.eyJzdWIiO.SflKxwRJSMeKK';
-
-    const app = new Hono();
-
-    app.use(wixSdk());
-    app.post('/useFetchWithAuth', async (c) => {
-      await fetchWithAuth(testServer.url);
-      return c.text('ok');
-    });
-
-    await app.request('/useFetchWithAuth', {
-      method: 'POST',
-      headers: { 'x-wix-authorization': myWixAuth, Authorization: 'foo' },
-    });
-
-    const [reqFromWixClient] = testServer.reqs();
-    assert.equal(reqFromWixClient.headers.authorization, myWixAuth);
-  });
-
   it('each request should have its own header regardless of other concurrent requests', async () => {
     await using testServer = await server();
 

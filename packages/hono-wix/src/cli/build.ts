@@ -173,6 +173,7 @@ export async function build({ config }: BuildOptions) {
     outDir: config.outDir,
     format: 'esm',
     target: 'es2020',
+    splitting: false,
     outExtension() {
       return { js: '.js', dts: '.d.ts' };
     },
