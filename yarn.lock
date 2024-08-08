@@ -522,7 +522,7 @@ __metadata:
     typescript: "npm:^5.5.4"
     typescript-eslint: "npm:^8.0.1"
   bin:
-    create-app: dist/index.js
+    create-hono-wix-app: dist/index.js
   languageName: unknown
   linkType: soft
 

@@ -1,10 +1,7 @@
 {
   "name": "@hono-wix/create-app",
-  "version": "0.0.1",
-  "private": false,
-  "bin": {
-    "create-app": "dist/index.js"
-  },
+  "version": "0.0.4",
+  "bin": "dist/index.js",
   "files": [
     "dist",
     "template"
