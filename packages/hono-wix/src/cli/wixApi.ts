@@ -36,7 +36,9 @@ export async function getSitesList() {
   };
 
   const client = await createClientWithAuth();
-  const res = await client.fetchWithAuth(url, { method });
+  const res = await client.fetchWithAuth(url, {
+    method,
+  });
   const json: QuerySitesResponse = await res.json();
 
   return json.sites ?? [];

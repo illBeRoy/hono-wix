@@ -26,10 +26,44 @@ export async function init({ config }: InitOptions) {
     );
   }
 
+  const { createNewSite } = await prompts({
+    name: 'createNewSite',
+    type: 'select',
+    message: 'What do you want to do?',
+    choices: [
+      {
+        title: 'Create new site for this project',
+        description: 'this will take you to wix.com to create a new site',
+        value: true,
+      },
+      {
+        title: 'Use an existing site',
+        description: 'choose from a list of your sites',
+        value: false,
+      },
+    ],
+  });
+
+  if (createNewSite) {
+    console.log(
+      "We're taking you to wix.com to create a new site. Once created, come back and continue this wizard.",
+    );
+    open('https://www.wix.com/studio/templates');
+
+    const { shouldContinue } = await prompts({
+      name: 'shouldContinue',
+      type: 'confirm',
+      message: 'Have your created your new Wix site?',
+      initial: true,
+    });
+
+    assert(shouldContinue, 'User aborted the onboarding process');
+  }
+
   const sites = await getSitesList();
   if (sites.length === 0) {
     console.log(
-      'You do not have existing wix sites yet.\n' +
+      'You do not have any sites connected to your Wix account yet.\n' +
         'Get started at: https://manage.wix.com',
     );
     return;
@@ -39,27 +73,10 @@ export async function init({ config }: InitOptions) {
     name: 'selectedSite',
     type: 'select',
     message: 'Choose a Wix site to link to your project',
-    choices: [
-      {
-        title: 'Create new site',
-        value: '<NEW>',
-        description:
-          'go to wix.com to create a new site and connect it to your project',
-      },
-      { title: '------', disabled: true },
-      ...sites.map((site) => ({ value: site.id, title: site.displayName })),
-    ],
+    choices: sites.map((site) => ({ value: site.id, title: site.displayName })),
   });
 
   assert(selectedSite, 'No site was selected. Aborting...');
-
-  if (selectedSite === '<NEW>') {
-    console.log(
-      'Sending you to wix.com to create a new site. Once created, run "hono-wix init" once again, and select the newly created site.',
-    );
-    open('https://manage.wix.com');
-    return;
-  }
 
   await turnOnSiteDevMode(selectedSite);
 

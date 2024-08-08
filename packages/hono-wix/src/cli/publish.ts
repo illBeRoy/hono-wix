@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import path from 'node:path';
 import prompts from 'prompts';
 import { build } from './build';
-import { deployApp } from './wixApi';
+import { deployApp, login, whoAmI } from './wixApi';
 import type { Config } from './config';
 
 export interface PublishOptions {
@@ -14,6 +14,15 @@ export async function publish({ config }: PublishOptions) {
     config.siteId,
     'Your project isn\'t connected to a site. Please run "wix-hono init"',
   );
+
+  const me = whoAmI();
+  if (!me) {
+    const isLoggedIn = login();
+    assert(
+      isLoggedIn,
+      'You must be logged in in order to publish this project to a Wix site',
+    );
+  }
 
   const { shouldBuild } = await prompts({
     message: `Should we build the project? (out dir: "${config.outDir}")`,
