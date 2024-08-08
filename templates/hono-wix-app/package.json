@@ -1,10 +1,10 @@
 {
-  "name": "hono-wix-app-template",
+  "name": "{{appName}}",
   "private": true,
   "main": "src/index.ts",
   "scripts": {
     "dev": "tsx src/dev.ts",
-    "test": "tsx --test tests/**/*.spec.(ts|tsx)",
+    "test": "tsx --test tests/**/*.spec.ts",
     "lint": "eslint",
     "build": "hono-wix build",
     "manage": "hono-wix manage",

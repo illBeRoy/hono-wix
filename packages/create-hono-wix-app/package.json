@@ -1,0 +1,29 @@
+{
+  "name": "@hono-wix/create-app",
+  "version": "0.0.1",
+  "bin": {
+    "create-app": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "template"
+  ],
+  "scripts": {
+    "build": "tsc && rm -rf template && cp -R ../../templates/hono-wix-app template"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@types/eslint": "^9",
+    "@types/node": "^22.1.0",
+    "@types/prompts": "^2.4.9",
+    "eslint": "9.x",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.0.1"
+  },
+  "dependencies": {
+    "prompts": "^2.4.2"
+  }
+}

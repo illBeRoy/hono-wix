@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import assert from 'node:assert';
 import { parseArgs } from 'node:util';
 import { loadConfig } from './config';
 import { init } from './init';
