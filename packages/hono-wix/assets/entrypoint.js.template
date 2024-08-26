@@ -1,6 +1,6 @@
 import app from './__hono';
 
-async function use_{{PREFIX}}(app, request) {
+export async function use_{{PREFIX}}(request) {
   const wixHttpFunctions = await import('wix-http-functions');
 
   const honoResponse = await app.request(request.path.join('/'), {
