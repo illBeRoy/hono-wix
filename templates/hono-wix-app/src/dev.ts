@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import { serve } from '@hono/node-server';
 import app from './index';
 
-app.get('/', async (c) =>
+app.get('/_dev/readme', async (c) =>
   c.html(`
     <!doctype html>
     <html>

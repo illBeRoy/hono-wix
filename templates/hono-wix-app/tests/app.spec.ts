@@ -3,9 +3,9 @@ import assert from 'node:assert';
 import app from '../src';
 
 describe('My Hono App', () => {
-  it('should respond to "hello"', async () => {
-    const res = await app.request('/hello');
+  it('should respond when making a request to index', async () => {
+    const res = await app.request('/');
     assert.equal(res.status, 200);
-    assert.deepEqual(await res.json(), { answer: 'world!' });
+    assert((await res.text()).includes('Hello! This is your Hono app.'));
   });
 });
