@@ -47,7 +47,11 @@ export async function publish({ config }: PublishOptions) {
   });
 
   const httpFnsUrl = new URL(deployment.deploymentUrl);
-  httpFnsUrl.pathname = path.join(httpFnsUrl.pathname, '_functions');
+  httpFnsUrl.pathname = path.join(
+    httpFnsUrl.pathname,
+    '_functions',
+    config.prefix,
+  );
 
   console.log('Success!');
   console.log(`Your app is live at: ${httpFnsUrl}`);

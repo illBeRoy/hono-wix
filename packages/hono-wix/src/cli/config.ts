@@ -1,10 +1,11 @@
 import { load } from '@npmcli/package-json';
 
-export type Config = typeof config;
+export type Config = typeof defaultConfig;
 
-export const config = {
+export const defaultConfig = {
   outDir: 'dist',
   siteId: '',
+  prefix: 'api',
 };
 
 export async function loadConfig(): Promise<Config> {
@@ -16,21 +17,24 @@ export async function loadConfig(): Promise<Config> {
       : {};
 
   return {
-    ...config,
+    ...defaultConfig,
     ...(typeof conf.outDir === 'string' ? { outDir: conf.outDir } : {}),
     ...(typeof conf.siteId === 'string' ? { siteId: conf.siteId } : {}),
+    ...(typeof conf.prefix === 'string' ? { siteId: conf.prefix } : {}),
   };
 }
 
 export async function setConfigKey<TKey extends keyof Config>(
   key: TKey,
-  value: Config[TKey],
+  value: Exclude<Config[TKey], undefined>,
 ) {
   const pkgJson = await load(process.cwd());
   await pkgJson
     .update({
       wix: {
-        ...(typeof pkgJson.content.wix === 'object' ? pkgJson.content.wix : {}),
+        ...(pkgJson.content.wix && typeof pkgJson.content.wix === 'object'
+          ? pkgJson.content.wix
+          : {}),
         [key]: value,
       },
     })

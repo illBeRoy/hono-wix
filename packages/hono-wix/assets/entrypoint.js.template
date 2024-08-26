@@ -1,7 +1,9 @@
-async function handleRequest(app, request) {
+import app from './__hono';
+
+async function use_{{PREFIX}}(app, request) {
   const wixHttpFunctions = await import('wix-http-functions');
 
-  const honoResponse = await app.request(request.functionName, {
+  const honoResponse = await app.request(request.path.join('/'), {
     method: request.method,
     headers: request.headers,
     ...(['GET', 'HEAD'].includes(request.method.toUpperCase())
