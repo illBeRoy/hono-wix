@@ -2468,7 +2468,6 @@ __metadata:
     typescript: "npm:^5.5.4"
     typescript-eslint: "npm:^8.0.0"
   peerDependencies:
-    "@wix/sdk": ^1.12.10
     hono: ^4.0.0
   bin:
     hono-wix: dist/cli/index.js
