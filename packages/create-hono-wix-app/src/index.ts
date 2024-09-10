@@ -6,7 +6,7 @@ import { execSync } from 'node:child_process';
 import path from 'node:path';
 import prompts from 'prompts';
 
-const PKG_MANAGERS = ['npm', 'yarn', 'pnpm'] as const;
+const PKG_MANAGERS = ['npm', 'yarn', 'pnpm', 'bun'] as const;
 type PackageManager = (typeof PKG_MANAGERS)[number];
 
 async function main() {
@@ -60,6 +60,7 @@ async function main() {
     npm: 'npm install',
     yarn: 'yarn',
     pnpm: 'pnpm install',
+    bun: 'bun install',
   };
 
   execSync(installCommands[pkgManager], { cwd: appPath, stdio: 'inherit' });
@@ -68,6 +69,7 @@ async function main() {
     npm: 'npx hono-wix init',
     yarn: 'yarn hono-wix init',
     pnpm: 'pnpm exec hono-wix init',
+    bun: 'bunx hono-wix init',
   };
 
   execSync(initCommands[pkgManager], { cwd: appPath, stdio: 'inherit' });
@@ -76,7 +78,10 @@ async function main() {
     npm: (s) => `npm run ${s}`,
     yarn: (s) => `yarn ${s}`,
     pnpm: (s) => `pnpm run ${s}`,
+    bun: (s) => `bun run ${s}`,
   };
+
+  process.chdir(appPath);
 
   console.log('Done!');
   console.log('');
